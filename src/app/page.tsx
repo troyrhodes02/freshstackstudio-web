@@ -3,12 +3,14 @@
 import { Box, Container, Typography } from '@mui/material';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
+import ServicesSection from '../components/ServicesSection';
 
 export default function Home() {
   return (
     <>
       <Navbar />
       <HeroSection />
+      <ServicesSection />
 
       {/* Placeholder sections for navigation testing */}
       <Box id='services' sx={{ py: 8, bgcolor: 'background.paper' }}>

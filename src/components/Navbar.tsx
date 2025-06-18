@@ -13,7 +13,6 @@ import {
   ListItem,
   ListItemText,
   Container,
-  useTheme,
   useMediaQuery,
 } from '@mui/material';
 import {
@@ -32,8 +31,12 @@ const navigationItems = [
 ];
 
 const Navbar: React.FC = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  // Enhanced breakpoints for better device handling
+  const isMobile = useMediaQuery('(max-width:1023px)');
+  const isShortScreen = useMediaQuery('(max-height:700px)'); // Handle Nest Hub and similar
+  const isVerySmall = useMediaQuery('(max-width:480px)');
+  const isCompactMode = isMobile || isShortScreen; // Use mobile layout for short screens too
+
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -165,23 +168,36 @@ const Navbar: React.FC = () => {
           <Toolbar
             sx={{
               justifyContent: 'space-between',
-              py: { xs: 1, sm: 1.5, md: 2 },
-              minHeight: { xs: 64, sm: 72, md: 80 },
+              py: isShortScreen
+                ? { xs: 0.5, sm: 1 }
+                : { xs: 1, sm: 1.5, lg: 2 },
+              minHeight: isShortScreen
+                ? { xs: 56, sm: 60 }
+                : { xs: 64, sm: 72, lg: 80 },
+              px: { xs: 1, sm: 2 },
             }}
           >
+            {/* Logo */}
             <Box
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: { xs: 1, sm: 1.5, md: 2 },
+                gap: isShortScreen
+                  ? { xs: 0.5, sm: 1 }
+                  : { xs: 1, sm: 1.5, lg: 2 },
                 cursor: 'pointer',
+                flexShrink: 0,
               }}
               onClick={() => handleNavClick('#home')}
             >
               <Box
                 sx={{
-                  width: { xs: 40, sm: 45, md: 50 },
-                  height: { xs: 40, sm: 45, md: 50 },
+                  width: isShortScreen
+                    ? { xs: 32, sm: 36, md: 40 }
+                    : { xs: 36, sm: 42, md: 45, lg: 50 },
+                  height: isShortScreen
+                    ? { xs: 32, sm: 36, md: 40 }
+                    : { xs: 36, sm: 42, md: 45, lg: 50 },
                   bgcolor: 'primary.main',
                   borderRadius: 2,
                   display: 'flex',
@@ -195,7 +211,14 @@ const Navbar: React.FC = () => {
                   sx={{
                     color: 'white',
                     fontWeight: 700,
-                    fontSize: { xs: '1.4rem', sm: '1.6rem', md: '1.8rem' },
+                    fontSize: isShortScreen
+                      ? { xs: '1rem', sm: '1.2rem', md: '1.4rem' }
+                      : {
+                          xs: '1.2rem',
+                          sm: '1.4rem',
+                          md: '1.6rem',
+                          lg: '1.8rem',
+                        },
                   }}
                 >
                   F
@@ -206,73 +229,81 @@ const Navbar: React.FC = () => {
                 sx={{
                   fontWeight: 700,
                   color: 'text.primary',
-                  fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.5rem' },
-                  display: { xs: 'none', sm: 'block' },
+                  fontSize: isShortScreen
+                    ? { xs: '0.9rem', sm: '1rem', md: '1.1rem' }
+                    : { xs: '1rem', sm: '1.1rem', md: '1.3rem', lg: '1.5rem' },
+                  display: { xs: isVerySmall ? 'none' : 'block', sm: 'block' },
+                  whiteSpace: 'nowrap',
                 }}
               >
                 FreshStack Studio
               </Typography>
             </Box>
 
-            {/* Desktop & Tablet Navigation */}
-            {!isMobile && (
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: { md: 2, lg: 3 },
-                }}
-              >
-                {navigationItems.map(item => (
-                  <Button
-                    key={item.label}
-                    onClick={() => handleNavClick(item.href)}
-                    sx={{
-                      color: 'text.primary',
-                      fontWeight: 500,
-                      px: { md: 2, lg: 3 },
-                      py: 1.5,
-                      fontSize: { md: '0.95rem', lg: '1.1rem' },
-                      borderRadius: 2,
-                      '&:hover': {
-                        bgcolor: 'primary.50',
-                        color: 'primary.main',
-                      },
-                      transition: 'all 0.2s ease-in-out',
-                    }}
-                  >
-                    {item.label}
-                  </Button>
-                ))}
-              </Box>
+            {/* Desktop Navigation - Only show on large screens that aren't too short */}
+            {!isCompactMode && (
+              <>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: { lg: 1, xl: 2 },
+                    overflow: 'hidden',
+                  }}
+                >
+                  {navigationItems.map(item => (
+                    <Button
+                      key={item.label}
+                      onClick={() => handleNavClick(item.href)}
+                      sx={{
+                        color: 'text.primary',
+                        fontWeight: 500,
+                        px: { lg: 1.5, xl: 2 },
+                        py: 1.5,
+                        fontSize: { lg: '0.85rem', xl: '0.95rem' },
+                        borderRadius: 2,
+                        minWidth: 'auto',
+                        whiteSpace: 'nowrap',
+                        '&:hover': {
+                          bgcolor: 'primary.50',
+                          color: 'primary.main',
+                        },
+                        transition: 'all 0.2s ease-in-out',
+                      }}
+                    >
+                      {item.label}
+                    </Button>
+                  ))}
+                </Box>
+
+                {/* Desktop CTA Button */}
+                <Button
+                  variant='contained'
+                  startIcon={<RocketIcon />}
+                  onClick={() => handleNavClick('#contact')}
+                  sx={{
+                    px: { lg: 2.5, xl: 3 },
+                    py: 1.5,
+                    fontSize: { lg: '0.85rem', xl: '0.95rem' },
+                    borderRadius: 2,
+                    fontWeight: 600,
+                    flexShrink: 0,
+                    whiteSpace: 'nowrap',
+                    boxShadow: '0 4px 12px rgba(34, 197, 94, 0.3)',
+                    '&:hover': {
+                      transform: 'translateY(-1px)',
+                      boxShadow: '0 6px 16px rgba(34, 197, 94, 0.4)',
+                    },
+                    transition: 'all 0.2s ease-in-out',
+                  }}
+                >
+                  Start Your Project
+                </Button>
+              </>
             )}
 
-            {/* Desktop & Tablet CTA Button */}
-            {!isMobile && (
-              <Button
-                variant='contained'
-                startIcon={<RocketIcon />}
-                onClick={() => handleNavClick('#contact')}
-                sx={{
-                  px: { md: 3, lg: 4 },
-                  py: 1.5,
-                  fontSize: { md: '0.95rem', lg: '1.1rem' },
-                  borderRadius: 2,
-                  fontWeight: 600,
-                  boxShadow: '0 4px 12px rgba(34, 197, 94, 0.3)',
-                  '&:hover': {
-                    transform: 'translateY(-1px)',
-                    boxShadow: '0 6px 16px rgba(34, 197, 94, 0.4)',
-                  },
-                  transition: 'all 0.2s ease-in-out',
-                }}
-              >
-                Start Your Project
-              </Button>
-            )}
-
-            {/* Mobile Menu Button */}
-            {isMobile && (
+            {/* Mobile Menu Button - Show on mobile OR short screens */}
+            {isCompactMode && (
               <IconButton
                 color='inherit'
                 edge='start'
@@ -283,6 +314,7 @@ const Navbar: React.FC = () => {
                   '&:hover': {
                     bgcolor: 'primary.100',
                   },
+                  flexShrink: 0,
                 }}
               >
                 <MenuIcon />
@@ -302,7 +334,7 @@ const Navbar: React.FC = () => {
           keepMounted: true,
         }}
         sx={{
-          display: { xs: 'block', md: 'none' },
+          display: { xs: 'block' },
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: 280,
@@ -313,7 +345,13 @@ const Navbar: React.FC = () => {
         {drawer}
       </Drawer>
 
-      <Toolbar sx={{ minHeight: { xs: 64, sm: 72, md: 80 } }} />
+      <Toolbar
+        sx={{
+          minHeight: isShortScreen
+            ? { xs: 56, sm: 60 }
+            : { xs: 64, sm: 72, lg: 80 },
+        }}
+      />
     </>
   );
 };
