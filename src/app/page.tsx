@@ -6,6 +6,8 @@ import HeroSection from '../components/landing/HeroSection';
 import ServicesSection from '../components/landing/ServicesSection';
 import WhyFreshStack from '../components/landing/WhyFreshStack';
 import MeetTheTeam from '../components/landing/MeetTheTeam';
+import RecentProjects from '../components/landing/RecentProjects';
+import HowWeWork from '../components/landing/HowWeWork';
 
 export default function Home() {
   return (
@@ -15,6 +17,8 @@ export default function Home() {
       <ServicesSection />
       <WhyFreshStack />
       <MeetTheTeam />
+      <RecentProjects />
+      <HowWeWork />
     </Box>
   );
 }

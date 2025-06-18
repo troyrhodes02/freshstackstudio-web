@@ -79,7 +79,7 @@ const HeroSection: React.FC = () => {
             }}
           >
             FreshStack Studio turns bold business ideas into clear, robust
-            digital products—guiding every client from concept sketch to
+            technical products—guiding every client from concept sketch to
             finished solution with craftsmanship and care.
           </Typography>
 

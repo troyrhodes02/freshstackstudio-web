@@ -1,0 +1,18 @@
+{
+  "projects": [
+    {
+      "title": "YOUNGSTARWORLD",
+      "description": "Modern e-commerce platform for a trendsetting clothing brand, featuring a sleek shopping experience and dynamic product catalog.",
+      "image": "/projects/youngstarworld.png",
+      "category": "E-commerce",
+      "url": "https://youngstarworld.vercel.app"
+    },
+    {
+      "title": "MWL Business Consulting",
+      "description": "Professional consulting platform with dynamic content management and client engagement tools.",
+      "image": "/projects/mwl.png",
+      "category": "Business Services",
+      "url": "https://mwlbusinessconsulting.vercel.app"
+    }
+  ]
+}
