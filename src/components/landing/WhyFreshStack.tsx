@@ -111,7 +111,7 @@ const WhyFreshStack: React.FC = () => {
                 Founded by developers and a communications expert who believe in
                 bringing a fresh perspective to full-stack development. We
                 combine technical excellence with clear communication to deliver
-                digital products that truly serve your business.
+                technical products that truly serve your business.
               </Typography>
             </Box>
           </Grid>

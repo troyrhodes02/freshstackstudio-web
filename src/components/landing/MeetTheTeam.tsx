@@ -107,8 +107,9 @@ const MeetTheTeam: React.FC = () => {
                 }}
               >
                 Our team of passionate experts is committed to bringing your
-                digital vision to life. With deep technical expertise and clear
-                communication, we're here to transform your ideas into reality.
+                technical vision to life. With deep technical expertise and
+                clear communication, we're here to transform your ideas into
+                reality.
               </Typography>
             </Box>
           </Grid>
