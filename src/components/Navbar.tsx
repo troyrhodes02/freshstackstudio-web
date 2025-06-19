@@ -14,7 +14,10 @@ import {
   ListItemText,
   Container,
   useMediaQuery,
+  useTheme,
 } from '@mui/material';
+import Image from 'next/image';
+import Link from 'next/link';
 import {
   Menu as MenuIcon,
   Close as CloseIcon,
@@ -22,20 +25,20 @@ import {
 } from '@mui/icons-material';
 
 const navigationItems = [
-  { label: 'Services', href: '#services' },
-  { label: 'About', href: '#about' },
-  { label: 'Portfolio', href: '#portfolio' },
-  { label: 'Home', href: '#home' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Services', href: '/#services' },
+  { label: 'About', href: '/#about' },
+  { label: 'Portfolio', href: '/#portfolio' },
+  { label: 'Home', href: '/' },
+  { label: 'Pricing', href: '/#pricing' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 const Navbar: React.FC = () => {
-  // Enhanced breakpoints for better device handling
-  const isMobile = useMediaQuery('(max-width:1023px)');
-  const isShortScreen = useMediaQuery('(max-height:700px)'); // Handle Nest Hub and similar
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isShortScreen = useMediaQuery('(max-height:700px)');
   const isVerySmall = useMediaQuery('(max-width:480px)');
-  const isCompactMode = isMobile || isShortScreen; // Use mobile layout for short screens too
+  const isCompactMode = isMobile || isShortScreen;
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -44,10 +47,10 @@ const Navbar: React.FC = () => {
   };
 
   const handleNavClick = (href: string) => {
-    if (href === '#home') {
+    if (href === '/') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (href.startsWith('#')) {
-      const element = document.querySelector(href);
+    } else if (href.startsWith('/#')) {
+      const element = document.querySelector(href.substring(1));
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
@@ -72,23 +75,18 @@ const Navbar: React.FC = () => {
             sx={{
               width: 40,
               height: 40,
-              bgcolor: 'primary.main',
-              borderRadius: 1.5,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              position: 'relative',
             }}
           >
-            <Typography
-              variant='h6'
-              sx={{
-                color: 'white',
-                fontWeight: 700,
-                fontSize: '1.4rem',
-              }}
-            >
-              F
-            </Typography>
+            <Image
+              src='/logos/freshstack-logo.png'
+              alt='FreshStack Studio'
+              fill
+              style={{ objectFit: 'contain' }}
+            />
           </Box>
           <Typography
             variant='h6'
@@ -139,7 +137,7 @@ const Navbar: React.FC = () => {
           variant='contained'
           fullWidth
           startIcon={<RocketIcon />}
-          onClick={() => handleNavClick('#contact')}
+          onClick={() => handleNavClick('/contact')}
           sx={{
             py: 1.5,
             borderRadius: 2,
@@ -159,9 +157,9 @@ const Navbar: React.FC = () => {
         position='fixed'
         elevation={0}
         sx={{
-          bgcolor: 'rgba(255, 255, 255, 0.95)',
+          bgcolor: 'background.default',
           backdropFilter: 'blur(10px)',
-          borderBottom: '1px solid rgba(226, 232, 240, 0.8)',
+          borderBottom: `1px solid ${theme.palette.grey[100]}`,
         }}
       >
         <Container maxWidth='xl'>
@@ -178,67 +176,63 @@ const Navbar: React.FC = () => {
             }}
           >
             {/* Logo */}
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: isShortScreen
-                  ? { xs: 0.5, sm: 1 }
-                  : { xs: 1, sm: 1.5, lg: 2 },
-                cursor: 'pointer',
-                flexShrink: 0,
-              }}
-              onClick={() => handleNavClick('#home')}
-            >
+            <Link href='/' style={{ textDecoration: 'none' }}>
               <Box
                 sx={{
-                  width: isShortScreen
-                    ? { xs: 32, sm: 36, md: 40 }
-                    : { xs: 36, sm: 42, md: 45, lg: 50 },
-                  height: isShortScreen
-                    ? { xs: 32, sm: 36, md: 40 }
-                    : { xs: 36, sm: 42, md: 45, lg: 50 },
-                  bgcolor: 'primary.main',
-                  borderRadius: 2,
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  boxShadow: '0 4px 12px rgba(34, 197, 94, 0.3)',
+                  gap: isShortScreen
+                    ? { xs: 0.5, sm: 1 }
+                    : { xs: 1, sm: 1.5, lg: 2 },
+                  cursor: 'pointer',
+                  flexShrink: 0,
                 }}
               >
+                <Box
+                  sx={{
+                    width: isShortScreen
+                      ? { xs: 32, sm: 36, md: 40 }
+                      : { xs: 36, sm: 42, md: 45, lg: 50 },
+                    height: isShortScreen
+                      ? { xs: 32, sm: 36, md: 40 }
+                      : { xs: 36, sm: 42, md: 45, lg: 50 },
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Image
+                    src='/logos/freshstack-logo.png'
+                    alt='FreshStack Studio'
+                    fill
+                    style={{ objectFit: 'contain' }}
+                  />
+                </Box>
                 <Typography
                   variant='h4'
                   sx={{
-                    color: 'white',
                     fontWeight: 700,
+                    color: 'text.primary',
                     fontSize: isShortScreen
-                      ? { xs: '1rem', sm: '1.2rem', md: '1.4rem' }
+                      ? { xs: '0.9rem', sm: '1rem', md: '1.1rem' }
                       : {
-                          xs: '1.2rem',
-                          sm: '1.4rem',
-                          md: '1.6rem',
-                          lg: '1.8rem',
+                          xs: '1rem',
+                          sm: '1.1rem',
+                          md: '1.3rem',
+                          lg: '1.5rem',
                         },
+                    display: {
+                      xs: isVerySmall ? 'none' : 'block',
+                      sm: 'block',
+                    },
+                    whiteSpace: 'nowrap',
                   }}
                 >
-                  F
+                  FreshStack Studio
                 </Typography>
               </Box>
-              <Typography
-                variant='h4'
-                sx={{
-                  fontWeight: 700,
-                  color: 'text.primary',
-                  fontSize: isShortScreen
-                    ? { xs: '0.9rem', sm: '1rem', md: '1.1rem' }
-                    : { xs: '1rem', sm: '1.1rem', md: '1.3rem', lg: '1.5rem' },
-                  display: { xs: isVerySmall ? 'none' : 'block', sm: 'block' },
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                FreshStack Studio
-              </Typography>
-            </Box>
+            </Link>
 
             {/* Desktop Navigation - Only show on large screens that aren't too short */}
             {!isCompactMode && (
@@ -252,53 +246,66 @@ const Navbar: React.FC = () => {
                   }}
                 >
                   {navigationItems.map(item => (
-                    <Button
+                    <Link
                       key={item.label}
-                      onClick={() => handleNavClick(item.href)}
-                      sx={{
-                        color: 'text.primary',
-                        fontWeight: 500,
-                        px: { lg: 1.5, xl: 2 },
-                        py: 1.5,
-                        fontSize: { lg: '0.85rem', xl: '0.95rem' },
-                        borderRadius: 2,
-                        minWidth: 'auto',
-                        whiteSpace: 'nowrap',
-                        '&:hover': {
-                          bgcolor: 'primary.50',
-                          color: 'primary.main',
-                        },
-                        transition: 'all 0.2s ease-in-out',
+                      href={item.href}
+                      style={{ textDecoration: 'none' }}
+                      onClick={e => {
+                        if (item.href.startsWith('/#')) {
+                          e.preventDefault();
+                          handleNavClick(item.href);
+                        }
                       }}
                     >
-                      {item.label}
-                    </Button>
+                      <Button
+                        sx={{
+                          color: 'text.primary',
+                          fontWeight: 500,
+                          px: { lg: 1.5, xl: 2 },
+                          py: 1.5,
+                          fontSize: { lg: '0.85rem', xl: '0.95rem' },
+                          borderRadius: 2,
+                          minWidth: 'auto',
+                          whiteSpace: 'nowrap',
+                          '&:hover': {
+                            bgcolor: 'primary.light',
+                            color: 'primary.main',
+                          },
+                          transition: 'all 0.2s ease-in-out',
+                        }}
+                      >
+                        {item.label}
+                      </Button>
+                    </Link>
                   ))}
                 </Box>
 
                 {/* Desktop CTA Button */}
-                <Button
-                  variant='contained'
-                  startIcon={<RocketIcon />}
-                  onClick={() => handleNavClick('#contact')}
-                  sx={{
-                    px: { lg: 2.5, xl: 3 },
-                    py: 1.5,
-                    fontSize: { lg: '0.85rem', xl: '0.95rem' },
-                    borderRadius: 2,
-                    fontWeight: 600,
-                    flexShrink: 0,
-                    whiteSpace: 'nowrap',
-                    boxShadow: '0 4px 12px rgba(34, 197, 94, 0.3)',
-                    '&:hover': {
-                      transform: 'translateY(-1px)',
-                      boxShadow: '0 6px 16px rgba(34, 197, 94, 0.4)',
-                    },
-                    transition: 'all 0.2s ease-in-out',
-                  }}
-                >
-                  Start Your Project
-                </Button>
+                <Link href='/contact' style={{ textDecoration: 'none' }}>
+                  <Button
+                    variant='contained'
+                    startIcon={<RocketIcon />}
+                    sx={{
+                      px: { lg: 2.5, xl: 3 },
+                      py: 1.5,
+                      fontSize: { lg: '0.85rem', xl: '0.95rem' },
+                      borderRadius: 2,
+                      fontWeight: 600,
+                      flexShrink: 0,
+                      whiteSpace: 'nowrap',
+                      boxShadow: theme =>
+                        `0 4px 12px ${theme.palette.primary.main}30`,
+                      '&:hover': {
+                        transform: 'translateY(-1px)',
+                        boxShadow: theme =>
+                          `0 6px 16px ${theme.palette.primary.main}40`,
+                      },
+                      transition: 'all 0.2s ease-in-out',
+                    }}
+                  >
+                    Start Your Project
+                  </Button>
+                </Link>
               </>
             )}
 
@@ -338,7 +345,7 @@ const Navbar: React.FC = () => {
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: 280,
-            background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+            background: `linear-gradient(135deg, ${theme.palette.background.default} 0%, ${theme.palette.background.paper} 100%)`,
           },
         }}
       >

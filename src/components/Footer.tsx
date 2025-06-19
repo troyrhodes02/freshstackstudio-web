@@ -9,6 +9,7 @@ import {
   Link,
   IconButton,
 } from '@mui/material';
+import Image from 'next/image';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -42,23 +43,18 @@ const Footer: React.FC = () => {
                 sx={{
                   width: 40,
                   height: 40,
-                  bgcolor: 'primary.main',
-                  borderRadius: 1.5,
+                  position: 'relative',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
               >
-                <Typography
-                  variant='h6'
-                  sx={{
-                    color: 'white',
-                    fontWeight: 700,
-                    fontSize: '1.4rem',
-                  }}
-                >
-                  F
-                </Typography>
+                <Image
+                  src='/logos/freshstack-logo.png'
+                  alt='FreshStack Studio'
+                  fill
+                  style={{ objectFit: 'contain' }}
+                />
               </Box>
               <Typography
                 variant='h6'

@@ -10,6 +10,7 @@ import {
   TextField,
   Grid,
 } from '@mui/material';
+import Image from 'next/image';
 import {
   Send as SendIcon,
   Email as EmailIcon,
@@ -105,13 +106,18 @@ const ContactCTA: React.FC = () => {
                       width: 50,
                       height: 50,
                       borderRadius: '50%',
-                      bgcolor: '#22c55e15',
+                      position: 'relative',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}
                   >
-                    <SendIcon sx={{ color: '#22c55e', fontSize: 24 }} />
+                    <Image
+                      src='/logos/freshstack-logo.png'
+                      alt='FreshStack Studio'
+                      fill
+                      style={{ objectFit: 'contain' }}
+                    />
                   </Box>
                   <Box>
                     <Typography
