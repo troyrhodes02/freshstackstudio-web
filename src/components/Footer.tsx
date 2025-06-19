@@ -29,11 +29,13 @@ const Footer: React.FC = () => {
         color: 'white',
         py: { xs: 6, md: 8 },
         position: 'relative',
+        flexShrink: 0,
+        width: '100%',
+        marginTop: 'auto',
       }}
     >
       <Container maxWidth='lg'>
         <Grid container spacing={4}>
-          {/* Logo and Description */}
           <Grid item xs={12} md={4}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
               <Box

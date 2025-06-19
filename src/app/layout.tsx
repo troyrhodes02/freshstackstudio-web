@@ -17,7 +17,15 @@ export default function RootLayout({
     <html lang='en'>
       <body>
         <ThemeRegistry>
-          {children}
+          <main
+            style={{
+              flex: '1 0 auto',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            {children}
+          </main>
           <Footer />
         </ThemeRegistry>
       </body>
