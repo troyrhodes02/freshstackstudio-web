@@ -8,6 +8,7 @@ import {
   Paper,
   IconButton,
   Chip,
+  Grid,
 } from '@mui/material';
 import {
   Star as StarIcon,
@@ -104,212 +105,214 @@ const ClientSuccess: React.FC = () => {
       />
 
       <Container maxWidth='lg' sx={{ position: 'relative', zIndex: 2 }}>
-        {/* Section Header */}
-        <Box sx={{ textAlign: 'center', mb: { xs: 8, md: 12 } }}>
-          <Typography
-            variant='h2'
-            sx={{
-              fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4rem' },
-              fontWeight: 800,
-              background: 'linear-gradient(135deg, #1e293b 0%, #475569 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              mb: 3,
-            }}
-          >
-            Client Success Stories
-          </Typography>
-          <Typography
-            variant='h5'
-            sx={{
-              fontSize: { xs: '1.2rem', sm: '1.4rem', md: '1.25rem' },
-              fontWeight: 400,
-              color: 'text.secondary',
-              maxWidth: '800px',
-              mx: 'auto',
-            }}
-          >
-            See how we've helped our clients transform their ideas into
-            impactful solutions.
-          </Typography>
-        </Box>
-
-        {/* Testimonial Card */}
-        <Box
-          sx={{
-            maxWidth: '800px',
-            mx: 'auto',
-            position: 'relative',
-          }}
-        >
-          <Paper
-            elevation={0}
-            sx={{
-              position: 'relative',
-              p: { xs: 3, md: 5 },
-              borderRadius: 4,
-              bgcolor: 'white',
-              boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
-              border: '1px solid',
-              borderColor: 'grey.100',
-              transition: 'all 0.5s ease',
-              opacity: isAnimating ? 0.5 : 1,
-              transform: isAnimating ? 'scale(0.98)' : 'scale(1)',
-            }}
-          >
-            {/* Quote Icons */}
-            <QuoteIcon
-              sx={{
-                position: 'absolute',
-                top: { xs: 16, md: 24 },
-                left: { xs: 16, md: 24 },
-                fontSize: { xs: 32, md: 40 },
-                color: '#22c55e15',
-                transform: 'rotate(180deg)',
-              }}
-            />
-            <QuoteIcon
-              sx={{
-                position: 'absolute',
-                bottom: { xs: 16, md: 24 },
-                right: { xs: 16, md: 24 },
-                fontSize: { xs: 32, md: 40 },
-                color: '#22c55e15',
-              }}
-            />
-
-            {/* Project Type */}
-            <Box sx={{ mb: 3, display: 'flex', justifyContent: 'center' }}>
-              <Chip
-                label={currentClient.projectType}
+        <Grid container spacing={{ xs: 4, md: 8 }} alignItems='center'>
+          {/* Testimonial Card - Left Side */}
+          <Grid item xs={12} md={7} sx={{ order: { xs: 2, md: 1 } }}>
+            <Box sx={{ position: 'relative' }}>
+              <Paper
+                elevation={0}
                 sx={{
-                  bgcolor: '#22c55e15',
-                  color: '#22c55e',
-                  fontWeight: 600,
-                  fontSize: '0.9rem',
-                  py: 1.5,
-                  px: 2,
-                  height: 'auto',
-                  borderRadius: '100px',
+                  position: 'relative',
+                  p: { xs: 3, md: 5 },
+                  borderRadius: 4,
+                  bgcolor: 'white',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
+                  border: '1px solid',
+                  borderColor: 'grey.100',
+                  transition: 'all 0.5s ease',
+                  opacity: isAnimating ? 0.5 : 1,
+                  transform: isAnimating ? 'scale(0.98)' : 'scale(1)',
                 }}
-              />
-            </Box>
-
-            {/* Rating */}
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                gap: 0.5,
-                mb: 3,
-              }}
-            >
-              {[...Array(currentClient.rating)].map((_, index) => (
-                <StarIcon
-                  key={index}
+              >
+                {/* Quote Icons */}
+                <QuoteIcon
                   sx={{
-                    color: '#fbbf24',
-                    fontSize: { xs: 24, md: 28 },
+                    position: 'absolute',
+                    top: { xs: 16, md: 24 },
+                    left: { xs: 16, md: 24 },
+                    fontSize: { xs: 32, md: 40 },
+                    color: '#22c55e15',
+                    transform: 'rotate(180deg)',
                   }}
                 />
-              ))}
-            </Box>
+                <QuoteIcon
+                  sx={{
+                    position: 'absolute',
+                    bottom: { xs: 16, md: 24 },
+                    right: { xs: 16, md: 24 },
+                    fontSize: { xs: 32, md: 40 },
+                    color: '#22c55e15',
+                  }}
+                />
 
-            {/* Testimonial */}
-            <Typography
-              variant='body1'
-              sx={{
-                fontSize: { xs: '1rem', md: '1.1rem' },
-                lineHeight: 1.7,
-                color: 'text.primary',
-                textAlign: 'center',
-                mb: 4,
-                px: { xs: 2, md: 6 },
-                position: 'relative',
-                zIndex: 1,
-                minHeight: { xs: '160px', md: '140px' },
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              "{currentClient.testimonial}"
-            </Typography>
+                {/* Project Type */}
+                <Box sx={{ mb: 3, display: 'flex', justifyContent: 'center' }}>
+                  <Chip
+                    label={currentClient.projectType}
+                    sx={{
+                      bgcolor: '#22c55e15',
+                      color: '#22c55e',
+                      fontWeight: 600,
+                      fontSize: '0.9rem',
+                      py: 1.5,
+                      px: 2,
+                      height: 'auto',
+                      borderRadius: '100px',
+                    }}
+                  />
+                </Box>
 
-            {/* Client Info */}
-            <Box sx={{ textAlign: 'center' }}>
-              <Typography
-                variant='h6'
+                {/* Rating */}
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    gap: 0.5,
+                    mb: 3,
+                  }}
+                >
+                  {[...Array(currentClient.rating)].map((_, index) => (
+                    <StarIcon
+                      key={index}
+                      sx={{
+                        color: '#fbbf24',
+                        fontSize: { xs: 24, md: 28 },
+                      }}
+                    />
+                  ))}
+                </Box>
+
+                {/* Testimonial */}
+                <Typography
+                  variant='body1'
+                  sx={{
+                    fontSize: { xs: '1rem', md: '1.1rem' },
+                    lineHeight: 1.7,
+                    color: 'text.primary',
+                    textAlign: 'center',
+                    mb: 4,
+                    px: { xs: 2, md: 6 },
+                    position: 'relative',
+                    zIndex: 1,
+                    minHeight: { xs: '160px', md: '140px' },
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  "{currentClient.testimonial}"
+                </Typography>
+
+                {/* Client Info */}
+                <Box sx={{ textAlign: 'center' }}>
+                  <Typography
+                    variant='h6'
+                    sx={{
+                      fontSize: { xs: '1.1rem', md: '1.2rem' },
+                      fontWeight: 700,
+                      color: 'text.primary',
+                      mb: 0.5,
+                    }}
+                  >
+                    {currentClient.name}
+                  </Typography>
+                  <Typography
+                    variant='body2'
+                    sx={{
+                      fontSize: { xs: '0.9rem', md: '1rem' },
+                      color: 'text.secondary',
+                      mb: 0.5,
+                    }}
+                  >
+                    {currentClient.role}
+                  </Typography>
+                  <Typography
+                    variant='body2'
+                    sx={{
+                      fontSize: { xs: '0.9rem', md: '1rem' },
+                      color: 'text.secondary',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {currentClient.company}
+                  </Typography>
+                </Box>
+              </Paper>
+
+              {/* Navigation Buttons */}
+              <Box
                 sx={{
-                  fontSize: { xs: '1.1rem', md: '1.2rem' },
-                  fontWeight: 700,
-                  color: 'text.primary',
-                  mb: 0.5,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  gap: 2,
+                  mt: 4,
                 }}
               >
-                {currentClient.name}
+                <IconButton
+                  onClick={handlePrevious}
+                  sx={{
+                    bgcolor: 'white',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                    '&:hover': {
+                      bgcolor: 'grey.50',
+                    },
+                  }}
+                >
+                  <PrevIcon />
+                </IconButton>
+                <IconButton
+                  onClick={handleNext}
+                  sx={{
+                    bgcolor: 'white',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                    '&:hover': {
+                      bgcolor: 'grey.50',
+                    },
+                  }}
+                >
+                  <NextIcon />
+                </IconButton>
+              </Box>
+            </Box>
+          </Grid>
+
+          {/* Section Header - Right Side */}
+          <Grid item xs={12} md={5} sx={{ order: { xs: 1, md: 2 } }}>
+            <Box
+              sx={{
+                textAlign: { xs: 'center', md: 'left' },
+                mb: { xs: 3, md: 0 },
+              }}
+            >
+              <Typography
+                variant='h2'
+                sx={{
+                  fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4rem' },
+                  fontWeight: 800,
+                  background:
+                    'linear-gradient(135deg, #1e293b 0%, #475569 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  mb: 3,
+                }}
+              >
+                Client Success Stories
               </Typography>
               <Typography
+                variant='h5'
                 sx={{
-                  fontSize: { xs: '0.9rem', md: '1rem' },
+                  fontSize: { xs: '1.2rem', sm: '1.4rem', md: '1.25rem' },
+                  fontWeight: 400,
                   color: 'text.secondary',
-                  fontWeight: 500,
                 }}
               >
-                {currentClient.role} at {currentClient.company}
+                See how we've helped our clients transform their ideas into
+                impactful solutions.
               </Typography>
             </Box>
-          </Paper>
-
-          {/* Navigation Controls */}
-          <Box
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              left: { xs: 0, md: -24 },
-              right: { xs: 0, md: -24 },
-              display: 'flex',
-              justifyContent: 'space-between',
-              transform: 'translateY(-50%)',
-              px: { xs: 2, md: 0 },
-              zIndex: 2,
-            }}
-          >
-            <IconButton
-              onClick={handlePrevious}
-              sx={{
-                bgcolor: 'white',
-                width: { xs: 36, md: 48 },
-                height: { xs: 36, md: 48 },
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                '&:hover': {
-                  bgcolor: 'grey.50',
-                  transform: 'scale(1.1)',
-                },
-                transition: 'all 0.3s ease',
-              }}
-            >
-              <PrevIcon sx={{ fontSize: { xs: 20, md: 24 } }} />
-            </IconButton>
-            <IconButton
-              onClick={handleNext}
-              sx={{
-                bgcolor: 'white',
-                width: { xs: 36, md: 48 },
-                height: { xs: 36, md: 48 },
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                '&:hover': {
-                  bgcolor: 'grey.50',
-                  transform: 'scale(1.1)',
-                },
-                transition: 'all 0.3s ease',
-              }}
-            >
-              <NextIcon sx={{ fontSize: { xs: 20, md: 24 } }} />
-            </IconButton>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );
