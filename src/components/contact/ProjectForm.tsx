@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -20,6 +20,16 @@ const ProjectForm: React.FC = () => {
     projectIdea: '',
   });
 
+  useEffect(() => {
+    // Check for stored project description
+    const storedDescription = localStorage.getItem('projectDescription');
+    if (storedDescription) {
+      setFormData(prev => ({ ...prev, projectIdea: storedDescription }));
+      // Clear the stored description after using it
+      localStorage.removeItem('projectDescription');
+    }
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission
@@ -33,11 +43,10 @@ const ProjectForm: React.FC = () => {
         position: 'relative',
         p: { xs: 3, sm: 4 },
         borderRadius: 4,
-        bgcolor: theme => theme.palette.background.paper,
+        bgcolor: 'background.paper',
         border: `1px solid ${theme.palette.grey[100]}`,
         height: '100%',
         overflow: 'hidden',
-        boxShadow: `0 10px 40px -10px ${theme.palette.primary.main}15`,
         '&::before': {
           content: '""',
           position: 'absolute',
@@ -51,12 +60,12 @@ const ProjectForm: React.FC = () => {
         '&::after': {
           content: '""',
           position: 'absolute',
-          top: 0,
+          top: 6,
           right: 0,
-          width: '50%',
-          height: '100%',
+          width: '30%',
+          height: '30%',
           background: theme =>
-            `radial-gradient(circle at top right, ${theme.palette.primary.main}08, transparent 60%)`,
+            `radial-gradient(circle, ${theme.palette.primary.main}10 0%, transparent 70%)`,
           zIndex: 0,
         },
       }}
@@ -68,10 +77,6 @@ const ProjectForm: React.FC = () => {
             fontWeight: 700,
             color: 'text.primary',
             mb: 1,
-            background: theme =>
-              `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
           }}
         >
           Tell Us About Your Project
@@ -114,13 +119,8 @@ const ProjectForm: React.FC = () => {
               onChange={e => setFormData({ ...formData, name: e.target.value })}
               sx={{
                 '& .MuiOutlinedInput-root': {
-                  bgcolor: theme => `${theme.palette.primary.light}05`,
+                  bgcolor: 'background.default',
                   borderRadius: 2,
-                  transition: 'all 0.2s ease-in-out',
-                  '&:hover': {
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                  },
                   '&:hover .MuiOutlinedInput-notchedOutline': {
                     borderColor: 'primary.main',
                   },
@@ -142,13 +142,8 @@ const ProjectForm: React.FC = () => {
               }
               sx={{
                 '& .MuiOutlinedInput-root': {
-                  bgcolor: theme => `${theme.palette.primary.light}05`,
+                  bgcolor: 'background.default',
                   borderRadius: 2,
-                  transition: 'all 0.2s ease-in-out',
-                  '&:hover': {
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                  },
                   '&:hover .MuiOutlinedInput-notchedOutline': {
                     borderColor: 'primary.main',
                   },
@@ -170,13 +165,8 @@ const ProjectForm: React.FC = () => {
             }
             sx={{
               '& .MuiOutlinedInput-root': {
-                bgcolor: theme => `${theme.palette.primary.light}05`,
+                bgcolor: 'background.default',
                 borderRadius: 2,
-                transition: 'all 0.2s ease-in-out',
-                '&:hover': {
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                },
                 '&:hover .MuiOutlinedInput-notchedOutline': {
                   borderColor: 'primary.main',
                 },
@@ -200,13 +190,8 @@ const ProjectForm: React.FC = () => {
             }
             sx={{
               '& .MuiOutlinedInput-root': {
-                bgcolor: theme => `${theme.palette.primary.light}05`,
+                bgcolor: 'background.default',
                 borderRadius: 2,
-                transition: 'all 0.2s ease-in-out',
-                '&:hover': {
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                },
                 '&:hover .MuiOutlinedInput-notchedOutline': {
                   borderColor: 'primary.main',
                 },

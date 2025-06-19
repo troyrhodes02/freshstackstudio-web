@@ -246,33 +246,33 @@ const Pricing: React.FC = () => {
                 </Grid>
               </Grid>
 
-              <Box sx={{ textAlign: 'center', mt: 3 }}>
+              <Box sx={{ textAlign: 'center', mt: 4 }}>
                 <Button
                   variant='contained'
                   size='large'
-                  startIcon={<ChatIcon />}
+                  onClick={() => (window.location.href = '/contact')}
                   sx={{
-                    bgcolor: '#22c55e',
-                    color: 'white',
-                    px: 3,
-                    py: 1,
+                    py: 2,
+                    px: 4,
                     borderRadius: 100,
+                    fontSize: '1.1rem',
+                    fontWeight: 600,
+                    background: theme =>
+                      `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+                    boxShadow: theme =>
+                      `0 8px 20px ${theme.palette.primary.main}20`,
                     '&:hover': {
-                      bgcolor: '#16a34a',
+                      background: theme =>
+                        `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.dark} 100%)`,
+                      transform: 'translateY(-2px)',
+                      boxShadow: theme =>
+                        `0 10px 24px ${theme.palette.primary.main}30`,
                     },
+                    transition: 'all 0.3s ease-in-out',
                   }}
                 >
                   Get Your Custom Quote
                 </Button>
-                <Typography
-                  sx={{
-                    mt: 1,
-                    color: 'text.secondary',
-                    fontSize: '0.85rem',
-                  }}
-                >
-                  Tell us about your vision, timeline, and budget
-                </Typography>
               </Box>
             </Paper>
           </Grid>

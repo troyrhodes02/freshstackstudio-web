@@ -3,6 +3,7 @@
 import React from 'react';
 import { Box, Container, Typography, Button } from '@mui/material';
 import { Send as SendIcon, PlayArrow as PlayIcon } from '@mui/icons-material';
+import Image from 'next/image';
 
 const HeroSection: React.FC = () => {
   const handleSendMessage = () => {
@@ -25,15 +26,80 @@ const HeroSection: React.FC = () => {
     <Box
       id='home'
       sx={{
-        minHeight: '100vh',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
-        bgcolor: '#fafafa',
-        py: { xs: 8, md: 12 },
+        bgcolor: 'background.paper',
+        pt: { xs: 10, sm: 11, md: 12, lg: 13 },
+        pb: { xs: 8, md: 12 },
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
-      <Container maxWidth='lg'>
+      {/* Background Logo Design */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: { xs: '500px', sm: '600px', md: '750px', lg: '900px' },
+          height: { xs: '500px', sm: '600px', md: '750px', lg: '900px' },
+          opacity: 0.12,
+          zIndex: 1,
+        }}
+      >
+        <Image
+          src='/logos/freshstack-logo.png'
+          alt='FreshStack Studio Background'
+          fill
+          style={{ objectFit: 'contain' }}
+          priority
+        />
+      </Box>
+
+      {/* Additional decorative logos for cool effect */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '20%',
+          right: '10%',
+          width: { xs: '120px', sm: '140px', md: '160px' },
+          height: { xs: '120px', sm: '140px', md: '160px' },
+          opacity: 0.06,
+          zIndex: 1,
+          transform: 'rotate(15deg)',
+        }}
+      >
+        <Image
+          src='/logos/freshstack-logo.png'
+          alt='FreshStack Studio Decoration'
+          fill
+          style={{ objectFit: 'contain' }}
+        />
+      </Box>
+
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: '15%',
+          left: '8%',
+          width: { xs: '90px', sm: '110px', md: '130px' },
+          height: { xs: '90px', sm: '110px', md: '130px' },
+          opacity: 0.05,
+          zIndex: 1,
+          transform: 'rotate(-20deg)',
+        }}
+      >
+        <Image
+          src='/logos/freshstack-logo.png'
+          alt='FreshStack Studio Decoration'
+          fill
+          style={{ objectFit: 'contain' }}
+        />
+      </Box>
+
+      <Container maxWidth='lg' sx={{ position: 'relative', zIndex: 2 }}>
         <Box
           sx={{
             textAlign: 'center',
@@ -62,7 +128,15 @@ const HeroSection: React.FC = () => {
             >
               Fresh
             </Box>
-            . Scale Fast.
+            .{' '}
+            <Box
+              component='span'
+              sx={{
+                display: 'block',
+              }}
+            >
+              Scale Fast.
+            </Box>
           </Typography>
 
           {/* Description */}

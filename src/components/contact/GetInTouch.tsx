@@ -68,23 +68,9 @@ const GetInTouch: React.FC = () => {
               sx={{
                 p: { xs: 3, sm: 4 },
                 borderRadius: 4,
-                bgcolor: theme => `${theme.palette.background.paper}`,
+                bgcolor: 'background.default',
                 border: `1px solid ${theme.palette.grey[100]}`,
                 height: '100%',
-                position: 'relative',
-                overflow: 'hidden',
-                boxShadow: `0 10px 40px -10px ${theme.palette.primary.main}15`,
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  background: theme =>
-                    `radial-gradient(circle at bottom left, ${theme.palette.primary.main}08, transparent 60%)`,
-                  zIndex: 0,
-                },
               }}
             >
               <Typography
@@ -93,16 +79,12 @@ const GetInTouch: React.FC = () => {
                   fontWeight: 700,
                   color: 'text.primary',
                   mb: 4,
-                  background: theme =>
-                    `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
                 }}
               >
                 Get in Touch
               </Typography>
 
-              <Box sx={{ mb: 4, position: 'relative', zIndex: 1 }}>
+              <Box sx={{ mb: 4 }}>
                 {contactInfo.map((info, index) => {
                   const IconComponent = info.icon;
                   return (
@@ -113,10 +95,6 @@ const GetInTouch: React.FC = () => {
                         alignItems: 'flex-start',
                         gap: 2,
                         mb: index < contactInfo.length - 1 ? 3 : 0,
-                        transition: 'transform 0.2s ease-in-out',
-                        '&:hover': {
-                          transform: 'translateX(8px)',
-                        },
                       }}
                     >
                       <Box
@@ -127,12 +105,8 @@ const GetInTouch: React.FC = () => {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          bgcolor: `${theme.palette.primary.main}15`,
+                          bgcolor: `${theme.palette.primary.main}10`,
                           color: 'primary.main',
-                          transition: 'all 0.2s ease-in-out',
-                          '&:hover': {
-                            transform: 'scale(1.1)',
-                          },
                         }}
                       >
                         <IconComponent />
@@ -155,9 +129,7 @@ const GetInTouch: React.FC = () => {
                               color: 'primary.main',
                               textDecoration: 'none',
                               fontWeight: 500,
-                              transition: 'all 0.2s ease-in-out',
                               '&:hover': {
-                                color: 'primary.dark',
                                 textDecoration: 'underline',
                               },
                             }}
@@ -181,7 +153,7 @@ const GetInTouch: React.FC = () => {
               </Box>
 
               {/* Social Links */}
-              <Box sx={{ position: 'relative', zIndex: 1 }}>
+              <Box>
                 <Typography
                   variant='subtitle2'
                   sx={{
@@ -221,8 +193,6 @@ const GetInTouch: React.FC = () => {
                             bgcolor: 'primary.main',
                             color: 'white',
                             transform: 'translateY(-2px)',
-                            boxShadow: theme =>
-                              `0 4px 12px ${theme.palette.primary.main}30`,
                           },
                         }}
                       >
