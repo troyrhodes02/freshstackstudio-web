@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ThemeRegistry } from './ThemeRegistry';
+import Footer from '@/components/Footer';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -15,7 +16,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <ThemeRegistry>{children}</ThemeRegistry>
+        <ThemeRegistry>
+          {children}
+          <Footer />
+        </ThemeRegistry>
       </body>
     </html>
   );
