@@ -9,6 +9,8 @@ import MeetTheTeam from '../components/landing/MeetTheTeam';
 import RecentProjects from '../components/landing/RecentProjects';
 import HowWeWork from '../components/landing/HowWeWork';
 import ClientSuccess from '../components/landing/ClientSuccess';
+import Pricing from '../components/landing/Pricing';
+import ContactCTA from '../components/landing/ContactCTA';
 
 export default function Home() {
   return (
@@ -21,6 +23,8 @@ export default function Home() {
       <RecentProjects />
       <HowWeWork />
       <ClientSuccess />
+      <Pricing />
+      <ContactCTA />
     </Box>
   );
 }
