@@ -48,11 +48,18 @@ const Navbar: React.FC = () => {
 
   const handleNavClick = (href: string) => {
     if (href === '/') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.location.href = '/';
+    } else if (href === '/contact') {
+      window.location.href = '/contact';
     } else if (href.startsWith('/#')) {
-      const element = document.querySelector(href.substring(1));
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+      // If we're not on the landing page, go there first
+      if (!window.location.pathname.endsWith('/')) {
+        window.location.href = href;
+      } else {
+        const element = document.querySelector(href.substring(1));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     }
     setMobileOpen(false);
@@ -236,78 +243,87 @@ const Navbar: React.FC = () => {
 
             {/* Desktop Navigation - Only show on large screens that aren't too short */}
             {!isCompactMode && (
-              <>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: { lg: 1, xl: 2 },
-                    overflow: 'hidden',
-                  }}
-                >
-                  {navigationItems.map(item => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      style={{ textDecoration: 'none' }}
-                      onClick={e => {
-                        if (item.href.startsWith('/#')) {
-                          e.preventDefault();
-                          handleNavClick(item.href);
-                        }
-                      }}
-                    >
-                      <Button
-                        sx={{
-                          color: 'text.primary',
-                          fontWeight: 500,
-                          px: { lg: 1.5, xl: 2 },
-                          py: 1.5,
-                          fontSize: { lg: '0.85rem', xl: '0.95rem' },
-                          borderRadius: 2,
-                          minWidth: 'auto',
-                          whiteSpace: 'nowrap',
-                          '&:hover': {
-                            bgcolor: 'primary.light',
-                            color: 'primary.main',
-                          },
-                          transition: 'all 0.2s ease-in-out',
-                        }}
-                      >
-                        {item.label}
-                      </Button>
-                    </Link>
-                  ))}
-                </Box>
-
-                {/* Desktop CTA Button */}
-                <Link href='/contact' style={{ textDecoration: 'none' }}>
-                  <Button
-                    variant='contained'
-                    startIcon={<RocketIcon />}
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: { xs: 2, sm: 3, md: 4 },
+                }}
+              >
+                {navigationItems.map(item => (
+                  <Box
+                    key={item.label}
+                    onClick={() => handleNavClick(item.href)}
                     sx={{
-                      px: { lg: 2.5, xl: 3 },
-                      py: 1.5,
-                      fontSize: { lg: '0.85rem', xl: '0.95rem' },
-                      borderRadius: 2,
-                      fontWeight: 600,
-                      flexShrink: 0,
-                      whiteSpace: 'nowrap',
-                      boxShadow: theme =>
-                        `0 4px 12px ${theme.palette.primary.main}30`,
-                      '&:hover': {
-                        transform: 'translateY(-1px)',
-                        boxShadow: theme =>
-                          `0 6px 16px ${theme.palette.primary.main}40`,
+                      position: 'relative',
+                      cursor: 'pointer',
+                      '&::after': {
+                        content: '""',
+                        position: 'absolute',
+                        width: '100%',
+                        height: '2px',
+                        bottom: '-4px',
+                        left: 0,
+                        backgroundColor: 'primary.main',
+                        transform: 'scaleX(0)',
+                        transformOrigin: 'right',
+                        transition:
+                          'transform 0.3s ease-in-out, opacity 0.2s ease-in-out',
+                        opacity: 0,
                       },
-                      transition: 'all 0.2s ease-in-out',
+                      '&:hover::after': {
+                        transform: 'scaleX(1)',
+                        transformOrigin: 'left',
+                        opacity: 1,
+                      },
+                      '&:hover': {
+                        color: 'primary.main',
+                        transform: 'translateY(-2px)',
+                      },
+                      transition:
+                        'transform 0.2s ease-in-out, color 0.2s ease-in-out',
                     }}
                   >
-                    Start Your Project
-                  </Button>
-                </Link>
-              </>
+                    <Typography
+                      sx={{
+                        fontWeight: 500,
+                        color: 'text.primary',
+                        fontSize: { xs: '0.9rem', sm: '1rem' },
+                      }}
+                    >
+                      {item.label}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
             )}
+
+            {/* Desktop CTA Button */}
+            <Link href='/contact' style={{ textDecoration: 'none' }}>
+              <Button
+                variant='contained'
+                startIcon={<RocketIcon />}
+                sx={{
+                  px: { lg: 2.5, xl: 3 },
+                  py: 1.5,
+                  fontSize: { lg: '0.85rem', xl: '0.95rem' },
+                  borderRadius: 2,
+                  fontWeight: 600,
+                  flexShrink: 0,
+                  whiteSpace: 'nowrap',
+                  boxShadow: theme =>
+                    `0 4px 12px ${theme.palette.primary.main}30`,
+                  '&:hover': {
+                    transform: 'translateY(-1px)',
+                    boxShadow: theme =>
+                      `0 6px 16px ${theme.palette.primary.main}40`,
+                  },
+                  transition: 'all 0.2s ease-in-out',
+                }}
+              >
+                Start Your Project
+              </Button>
+            </Link>
 
             {/* Mobile Menu Button - Show on mobile OR short screens */}
             {isCompactMode && (

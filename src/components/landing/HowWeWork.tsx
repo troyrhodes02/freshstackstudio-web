@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Box, Container, Typography, Grid } from '@mui/material';
+import { Box, Container, Typography, Grid, Button } from '@mui/material';
 import {
   Search as ExploreIcon,
   Palette as DesignIcon,
@@ -186,6 +186,35 @@ const HowWeWork: React.FC = () => {
             );
           })}
         </Grid>
+
+        {/* CTA Button */}
+        <Box sx={{ textAlign: 'center', mt: { xs: 6, md: 8 } }}>
+          <Button
+            variant='contained'
+            size='large'
+            onClick={() => (window.location.href = '/contact')}
+            sx={{
+              py: 2,
+              px: 4,
+              borderRadius: 100,
+              fontSize: '1.1rem',
+              fontWeight: 600,
+              background: theme =>
+                `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+              boxShadow: theme => `0 8px 20px ${theme.palette.primary.main}20`,
+              '&:hover': {
+                background: theme =>
+                  `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.dark} 100%)`,
+                transform: 'translateY(-2px)',
+                boxShadow: theme =>
+                  `0 10px 24px ${theme.palette.primary.main}30`,
+              },
+              transition: 'all 0.3s ease-in-out',
+            }}
+          >
+            Start Your Project Today
+          </Button>
+        </Box>
       </Container>
     </Box>
   );

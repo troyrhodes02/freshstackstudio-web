@@ -14,7 +14,7 @@ import ContactCTA from '../components/landing/ContactCTA';
 
 export default function Home() {
   return (
-    <Box sx={{ bgcolor: 'background.default' }}>
+    <Box sx={{ bgcolor: 'background.paper' }}>
       <Navbar />
       <HeroSection />
       <ServicesSection />

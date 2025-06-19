@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Container,
@@ -11,6 +11,7 @@ import {
   Grid,
 } from '@mui/material';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import {
   Send as SendIcon,
   Email as EmailIcon,
@@ -18,6 +19,17 @@ import {
 } from '@mui/icons-material';
 
 const ContactCTA: React.FC = () => {
+  const [message, setMessage] = useState('');
+  const router = useRouter();
+
+  const handleStartProject = () => {
+    // Store message in localStorage if it exists
+    if (message.trim()) {
+      localStorage.setItem('projectDescription', message.trim());
+    }
+    router.push('/contact');
+  };
+
   return (
     <Box
       id='contact'
@@ -140,6 +152,8 @@ const ContactCTA: React.FC = () => {
                   multiline
                   rows={4}
                   fullWidth
+                  value={message}
+                  onChange={e => setMessage(e.target.value)}
                   placeholder='Describe your project idea, timeline, and budget...'
                   sx={{
                     '& .MuiOutlinedInput-root': {
@@ -160,6 +174,7 @@ const ContactCTA: React.FC = () => {
                     variant='contained'
                     size='large'
                     startIcon={<SendIcon />}
+                    onClick={handleStartProject}
                     sx={{
                       bgcolor: '#22c55e',
                       color: 'white',
