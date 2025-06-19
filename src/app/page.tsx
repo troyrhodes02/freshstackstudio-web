@@ -8,6 +8,7 @@ import WhyFreshStack from '../components/landing/WhyFreshStack';
 import MeetTheTeam from '../components/landing/MeetTheTeam';
 import RecentProjects from '../components/landing/RecentProjects';
 import HowWeWork from '../components/landing/HowWeWork';
+import ClientSuccess from '../components/landing/ClientSuccess';
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       <MeetTheTeam />
       <RecentProjects />
       <HowWeWork />
+      <ClientSuccess />
     </Box>
   );
 }
