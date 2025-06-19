@@ -90,8 +90,9 @@ const WhyFreshStack: React.FC = () => {
                   lineHeight: 1.2,
                   maxWidth: { xs: '100%', sm: '600px', md: '100%' },
                   mx: { xs: 'auto', md: 0 },
-                  wordBreak: 'break-word',
-                  hyphens: 'auto',
+                  whiteSpace: 'normal',
+                  hyphens: 'none',
+                  wordBreak: 'normal',
                 }}
               >
                 Why FreshStack Studio?
