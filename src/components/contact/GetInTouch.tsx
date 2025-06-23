@@ -26,8 +26,8 @@ const GetInTouch: React.FC = () => {
     {
       icon: EmailIcon,
       title: 'Email',
-      content: 'hello@freshstackstudio.dev',
-      link: 'mailto:hello@freshstackstudio.dev',
+      content: 'freshstackstudio.projects@gmail.com',
+      link: 'mailto:freshstackstudio.projects@gmail.com',
     },
     {
       icon: TimeIcon,
@@ -107,6 +107,7 @@ const GetInTouch: React.FC = () => {
                           justifyContent: 'center',
                           bgcolor: `${theme.palette.primary.main}10`,
                           color: 'primary.main',
+                          flexShrink: 0,
                         }}
                       >
                         <IconComponent />
@@ -129,6 +130,8 @@ const GetInTouch: React.FC = () => {
                               color: 'primary.main',
                               textDecoration: 'none',
                               fontWeight: 500,
+                              wordBreak: 'break-word',
+                              display: 'block',
                               '&:hover': {
                                 textDecoration: 'underline',
                               },

@@ -212,7 +212,7 @@ const ContactCTA: React.FC = () => {
                       Email
                     </Typography>
                     <Typography sx={{ color: '#3b82f6', fontWeight: 500 }}>
-                      hello@freshstackstudio.dev
+                      freshstackstudio.projects@gmail.com
                     </Typography>
                   </Box>
                 </Box>

@@ -177,7 +177,7 @@ const Footer: React.FC = () => {
             <Box sx={{ mb: 3 }}>
               <Typography
                 component='a'
-                href='mailto:hello@freshstackstudio.dev'
+                href='mailto:freshstackstudio.projects@gmail.com'
                 sx={{
                   color: 'grey.400',
                   textDecoration: 'none',
@@ -188,7 +188,7 @@ const Footer: React.FC = () => {
                   mb: 1,
                 }}
               >
-                hello@freshstackstudio.dev
+                freshstackstudio.projects@gmail.com
               </Typography>
               <Typography
                 sx={{
