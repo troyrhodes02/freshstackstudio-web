@@ -47,7 +47,7 @@ const includedFeatures = [
 
 const pricingFeatures = [
   'No fixed packages',
-  'Transparent pricing based on scope',
+  'Transparent pricing',
   'Flexible payment terms available',
   'Startup-friendly rates',
   'No hidden fees or surprises',

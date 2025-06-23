@@ -1,14 +1,14 @@
-import React from 'react';
+'use client';
+
 import ContactHeader from '@/components/contact/ContactHeader';
 import GetInTouch from '@/components/contact/GetInTouch';
+import { Box } from '@mui/material';
 
-const ContactPage = () => {
+export default function Contact() {
   return (
-    <>
+    <Box sx={{ bgcolor: 'background.paper' }}>
       <ContactHeader />
       <GetInTouch />
-    </>
+    </Box>
   );
-};
-
-export default ContactPage;
+}

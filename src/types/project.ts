@@ -4,6 +4,7 @@ export interface Project {
   image: string;
   category: string;
   url: string;
+  technologies: string[];
 }
 
 export interface ProjectsData {

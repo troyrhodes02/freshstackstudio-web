@@ -25,17 +25,17 @@ import {
 } from '@mui/icons-material';
 
 const navigationItems = [
+  { label: 'Home', href: '/' },
   { label: 'Services', href: '/#services' },
   { label: 'About', href: '/#about' },
-  { label: 'Portfolio', href: '/#portfolio' },
-  { label: 'Home', href: '/' },
+  { label: 'Portfolio', href: '/portfolio' },
   { label: 'Pricing', href: '/#pricing' },
   { label: 'Contact', href: '/contact' },
 ];
 
 const Navbar: React.FC = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isShortScreen = useMediaQuery('(max-height:700px)');
   const isVerySmall = useMediaQuery('(max-width:480px)');
   const isCompactMode = isMobile || isShortScreen;
@@ -49,8 +49,8 @@ const Navbar: React.FC = () => {
   const handleNavClick = (href: string) => {
     if (href === '/') {
       window.location.href = '/';
-    } else if (href === '/contact') {
-      window.location.href = '/contact';
+    } else if (href === '/contact' || href === '/portfolio') {
+      window.location.href = href;
     } else if (href.startsWith('/#')) {
       // If we're not on the landing page, go there first
       if (!window.location.pathname.endsWith('/')) {
@@ -298,32 +298,34 @@ const Navbar: React.FC = () => {
               </Box>
             )}
 
-            {/* Desktop CTA Button */}
-            <Link href='/contact' style={{ textDecoration: 'none' }}>
-              <Button
-                variant='contained'
-                startIcon={<RocketIcon />}
-                sx={{
-                  px: { lg: 2.5, xl: 3 },
-                  py: 1.5,
-                  fontSize: { lg: '0.85rem', xl: '0.95rem' },
-                  borderRadius: 2,
-                  fontWeight: 600,
-                  flexShrink: 0,
-                  whiteSpace: 'nowrap',
-                  boxShadow: theme =>
-                    `0 4px 12px ${theme.palette.primary.main}30`,
-                  '&:hover': {
-                    transform: 'translateY(-1px)',
+            {/* Desktop CTA Button - Only show on large screens that aren't too short */}
+            {!isCompactMode && (
+              <Link href='/contact' style={{ textDecoration: 'none' }}>
+                <Button
+                  variant='contained'
+                  startIcon={<RocketIcon />}
+                  sx={{
+                    px: { lg: 2.5, xl: 3 },
+                    py: 1.5,
+                    fontSize: { lg: '0.85rem', xl: '0.95rem' },
+                    borderRadius: 2,
+                    fontWeight: 600,
+                    flexShrink: 0,
+                    whiteSpace: 'nowrap',
                     boxShadow: theme =>
-                      `0 6px 16px ${theme.palette.primary.main}40`,
-                  },
-                  transition: 'all 0.2s ease-in-out',
-                }}
-              >
-                Start Your Project
-              </Button>
-            </Link>
+                      `0 4px 12px ${theme.palette.primary.main}30`,
+                    '&:hover': {
+                      transform: 'translateY(-1px)',
+                      boxShadow: theme =>
+                        `0 6px 16px ${theme.palette.primary.main}40`,
+                    },
+                    transition: 'all 0.2s ease-in-out',
+                  }}
+                >
+                  Start Your Project
+                </Button>
+              </Link>
+            )}
 
             {/* Mobile Menu Button - Show on mobile OR short screens */}
             {isCompactMode && (
