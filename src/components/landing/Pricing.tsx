@@ -143,7 +143,7 @@ const Pricing: React.FC = () => {
                   mt: 2,
                 }}
               >
-                Typical projects range from $1k - $8k • Payment plans available
+                Typical projects range from $500 - $5k • Payment plans available
                 • 100% satisfaction guarantee
               </Typography>
             </Box>
