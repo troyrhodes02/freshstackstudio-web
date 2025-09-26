@@ -6,19 +6,40 @@ import {
   Container,
   Typography,
   Grid,
-  Link,
+  Link as MuiLink,
   IconButton,
 } from '@mui/material';
 import Image from 'next/image';
+import Link from 'next/link';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 
+const navigationItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Services', href: '/#services' },
+  { label: 'About', href: '/#about' },
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Pricing', href: '/#pricing' },
+  { label: 'Contact', href: '/contact' },
+];
+
 const Footer: React.FC = () => {
   const handleNavClick = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (href === '/') {
+      window.location.href = '/';
+    } else if (href === '/contact' || href === '/portfolio') {
+      window.location.href = href;
+    } else if (href.startsWith('/#')) {
+      // If we're not on the landing page, go there first
+      if (!window.location.pathname.endsWith('/')) {
+        window.location.href = href;
+      } else {
+        const element = document.querySelector(href.substring(1));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
     }
   };
 
@@ -99,66 +120,23 @@ const Footer: React.FC = () => {
                 gap: 1.5,
               }}
             >
-              <Link
-                component='button'
-                onClick={() => handleNavClick('#services')}
-                sx={{
-                  color: 'grey.400',
-                  textDecoration: 'none',
-                  '&:hover': {
-                    color: 'primary.main',
-                  },
-                  textAlign: 'left',
-                  width: 'fit-content',
-                }}
-              >
-                Services
-              </Link>
-              <Link
-                component='button'
-                onClick={() => handleNavClick('#about')}
-                sx={{
-                  color: 'grey.400',
-                  textDecoration: 'none',
-                  '&:hover': {
-                    color: 'primary.main',
-                  },
-                  textAlign: 'left',
-                  width: 'fit-content',
-                }}
-              >
-                About
-              </Link>
-              <Link
-                component='button'
-                onClick={() => handleNavClick('#home')}
-                sx={{
-                  color: 'grey.400',
-                  textDecoration: 'none',
-                  '&:hover': {
-                    color: 'primary.main',
-                  },
-                  textAlign: 'left',
-                  width: 'fit-content',
-                }}
-              >
-                Home
-              </Link>
-              <Link
-                component='button'
-                onClick={() => handleNavClick('#pricing')}
-                sx={{
-                  color: 'grey.400',
-                  textDecoration: 'none',
-                  '&:hover': {
-                    color: 'primary.main',
-                  },
-                  textAlign: 'left',
-                  width: 'fit-content',
-                }}
-              >
-                Pricing
-              </Link>
+              {navigationItems.map((item) => (
+                <Box
+                  key={item.label}
+                  onClick={() => handleNavClick(item.href)}
+                  sx={{
+                    color: 'grey.400',
+                    textDecoration: 'none',
+                    cursor: 'pointer',
+                    width: 'fit-content',
+                    '&:hover': {
+                      color: 'primary.main',
+                    },
+                  }}
+                >
+                  <Typography>{item.label}</Typography>
+                </Box>
+              ))}
             </Box>
           </Grid>
 
@@ -195,7 +173,7 @@ const Footer: React.FC = () => {
                   color: 'grey.400',
                 }}
               >
-                Response within 24 hours
+                Response within 48 hours
               </Typography>
               <Typography
                 sx={{
@@ -281,7 +259,7 @@ const Footer: React.FC = () => {
               gap: 3,
             }}
           >
-            <Link
+            <MuiLink
               href='#'
               sx={{
                 color: 'grey.400',
@@ -293,8 +271,8 @@ const Footer: React.FC = () => {
               }}
             >
               Privacy Policy
-            </Link>
-            <Link
+            </MuiLink>
+            <MuiLink
               href='#'
               sx={{
                 color: 'grey.400',
@@ -306,7 +284,7 @@ const Footer: React.FC = () => {
               }}
             >
               Terms of Service
-            </Link>
+            </MuiLink>
           </Box>
         </Box>
       </Container>

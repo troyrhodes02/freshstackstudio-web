@@ -245,7 +245,7 @@ const HeroSection: React.FC = () => {
                   fontSize: { xs: '0.95rem', sm: '1rem' },
                 }}
               >
-                2 MVPs launched for paying clients
+                3 MVPs launched for paying clients
               </Typography>
             </Box>
 

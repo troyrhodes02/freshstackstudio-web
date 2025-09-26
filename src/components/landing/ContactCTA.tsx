@@ -143,7 +143,7 @@ const ContactCTA: React.FC = () => {
                       sx={{ color: 'text.secondary', mt: 0.5 }}
                     >
                       Tell us about your project idea and we'll get back to you
-                      within 24 hours with next steps.
+                      within 48 hours with next steps.
                     </Typography>
                   </Box>
                 </Box>
@@ -226,7 +226,7 @@ const ContactCTA: React.FC = () => {
                       Response Time
                     </Typography>
                     <Typography sx={{ color: '#1e293b', fontWeight: 500 }}>
-                      Within 24 hours
+                      Within 48 hours
                     </Typography>
                   </Box>
                 </Box>
