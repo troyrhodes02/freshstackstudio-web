@@ -8,7 +8,7 @@ import WhyFreshStack from '../components/landing/WhyFreshStack';
 // import MeetTheTeam from '../components/landing/MeetTheTeam';
 import RecentProjects from '../components/landing/RecentProjects';
 import HowWeWork from '../components/landing/HowWeWork';
-import ClientSuccess from '../components/landing/ClientSuccess';
+// import ClientSuccess from '../components/landing/ClientSuccess';
 import Pricing from '../components/landing/Pricing';
 import ContactCTA from '../components/landing/ContactCTA';
 

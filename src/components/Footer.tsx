@@ -10,7 +10,6 @@ import {
   IconButton,
 } from '@mui/material';
 import Image from 'next/image';
-import Link from 'next/link';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -120,7 +119,7 @@ const Footer: React.FC = () => {
                 gap: 1.5,
               }}
             >
-              {navigationItems.map((item) => (
+              {navigationItems.map(item => (
                 <Box
                   key={item.label}
                   onClick={() => handleNavClick(item.href)}

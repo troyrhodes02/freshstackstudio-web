@@ -5,7 +5,13 @@
       "description": "A nostalgic Y2K MySpace-themed website that serves as both a digital portfolio and booking platform for a hair stylist. The site combines the aesthetic appeal of early 2000s web design with modern e-commerce functionality, creating a unique and memorable online presence.",
       "image": "/projects/kelc-swag-site.png",
       "category": "E-commerce",
-      "technologies": ["Next.js", "TypeScript", "Material-UI", "Stripe", "Prisma"],
+      "technologies": [
+        "Next.js",
+        "TypeScript",
+        "Material-UI",
+        "Stripe",
+        "Prisma"
+      ],
       "url": "https://kelc-swag-site.vercel.app"
     },
     {
