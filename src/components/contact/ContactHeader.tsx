@@ -103,7 +103,7 @@ const ContactHeader: React.FC = () => {
               {/* Stats or Trust Indicators */}
               <Grid container spacing={2}>
                 {[
-                  { number: '24h', text: 'Average Response Time' },
+                  { number: '48h', text: 'Average Response Time' },
                   { number: '100%', text: 'Client Satisfaction' },
                   { number: '2+', text: 'Years Experience' },
                 ].map((stat, index) => (

@@ -1,6 +1,20 @@
 {
   "projects": [
     {
+      "title": "Kel.C Styles",
+      "description": "A nostalgic Y2K MySpace-themed website that serves as both a digital portfolio and booking platform for a hair stylist. The site combines the aesthetic appeal of early 2000s web design with modern e-commerce functionality, creating a unique and memorable online presence.",
+      "image": "/projects/kelc-swag-site.png",
+      "category": "E-commerce",
+      "technologies": [
+        "Next.js",
+        "TypeScript",
+        "Material-UI",
+        "Stripe",
+        "Prisma"
+      ],
+      "url": "https://kelc-swag-site.vercel.app"
+    },
+    {
       "title": "YOUNGSTARWORLD",
       "description": "Modern e-commerce platform for a trendsetting clothing brand, featuring a sleek shopping experience and dynamic product catalog.",
       "image": "/projects/youngstarworld.png",

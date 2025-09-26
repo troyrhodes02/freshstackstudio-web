@@ -32,7 +32,7 @@ const GetInTouch: React.FC = () => {
     {
       icon: TimeIcon,
       title: 'Response Time',
-      content: 'Within 24 hours',
+      content: 'Within 48 hours',
     },
     {
       icon: StatusIcon,
