@@ -51,6 +51,13 @@ const ProjectForm: React.FC = () => {
       // Clear the stored description after using it
       localStorage.removeItem('projectDescription');
     }
+
+    // Set initial values for window-dependent fields
+    setFormData(prev => ({
+      ...prev,
+      source_url: window.location.href,
+      submitted_at: new Date().toLocaleString(),
+    }));
   }, []);
 
   const validateForm = () => {
@@ -63,7 +70,10 @@ const ProjectForm: React.FC = () => {
       return false;
     }
 
-    if (!formData.reply_to.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.reply_to)) {
+    if (
+      !formData.reply_to.trim() ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.reply_to)
+    ) {
       setAlert({
         open: true,
         message: 'Please enter a valid email address',
@@ -75,7 +85,8 @@ const ProjectForm: React.FC = () => {
     if (formData.project_idea.length < 20) {
       setAlert({
         open: true,
-        message: 'Please provide more details about your project (at least 20 characters)',
+        message:
+          'Please provide more details about your project (at least 20 characters)',
         severity: 'error',
       });
       return false;
@@ -113,13 +124,6 @@ const ProjectForm: React.FC = () => {
 
     setIsSubmitting(true);
 
-    // Set hidden fields
-    const submissionData = {
-      ...formData,
-      source_url: window.location.href,
-      submitted_at: new Date().toLocaleString(),
-    };
-
     try {
       await emailjs.sendForm(
         EMAILJS_SERVICE_ID,
@@ -144,7 +148,7 @@ const ProjectForm: React.FC = () => {
         source_url: window.location.href,
         submitted_at: new Date().toLocaleString(),
       });
-    } catch (error) {
+    } catch {
       setAlert({
         open: true,
         message: 'Failed to send message. Please try again.',
@@ -233,11 +237,13 @@ const ProjectForm: React.FC = () => {
             <TextField
               required
               fullWidth
-              name="from_name"
+              name='from_name'
               label='Name'
               placeholder='Your full name'
               value={formData.from_name}
-              onChange={e => setFormData({ ...formData, from_name: e.target.value })}
+              onChange={e =>
+                setFormData({ ...formData, from_name: e.target.value })
+              }
               sx={{
                 '& .MuiOutlinedInput-root': {
                   bgcolor: 'background.default',
@@ -254,7 +260,7 @@ const ProjectForm: React.FC = () => {
             <TextField
               required
               fullWidth
-              name="reply_to"
+              name='reply_to'
               label='Email'
               type='email'
               placeholder='your@email.com'
@@ -279,11 +285,16 @@ const ProjectForm: React.FC = () => {
 
           <TextField
             fullWidth
-            name="company"
+            name='company'
             label='Company'
             placeholder='Your company name'
             value={formData.company}
-            onChange={e => setFormData({ ...formData, company: e.target.value || 'Independent' })}
+            onChange={e =>
+              setFormData({
+                ...formData,
+                company: e.target.value || 'Independent',
+              })
+            }
             sx={{
               '& .MuiOutlinedInput-root': {
                 bgcolor: 'background.default',
@@ -303,7 +314,7 @@ const ProjectForm: React.FC = () => {
             fullWidth
             multiline
             rows={4}
-            name="project_idea"
+            name='project_idea'
             label='Project Idea'
             placeholder='Tell us about your project goals, timeline, and any specific requirements...'
             value={formData.project_idea}
@@ -325,23 +336,21 @@ const ProjectForm: React.FC = () => {
           />
 
           {/* Hidden Fields */}
+          <input type='hidden' name='source_url' value={formData.source_url} />
           <input
-            type="hidden"
-            name="source_url"
-            value={window.location.href}
+            type='hidden'
+            name='submitted_at'
+            value={formData.submitted_at}
           />
-          <input
-            type="hidden"
-            name="submitted_at"
-            value={new Date().toLocaleString()}
-          />
-          
+
           {/* Honeypot field */}
           <TextField
             sx={{ display: 'none' }}
-            name="honeypot"
+            name='honeypot'
             value={formData.honeypot}
-            onChange={e => setFormData({ ...formData, honeypot: e.target.value })}
+            onChange={e =>
+              setFormData({ ...formData, honeypot: e.target.value })
+            }
           />
 
           <Button
@@ -381,7 +390,7 @@ const ProjectForm: React.FC = () => {
           <Alert
             onClose={() => setAlert({ ...alert, open: false })}
             severity={alert.severity}
-            variant="filled"
+            variant='filled'
             sx={{ width: '100%' }}
           >
             {alert.message}
