@@ -4,8 +4,10 @@ import React from 'react';
 import { Box, Container, Typography, Button } from '@mui/material';
 import { Send as SendIcon, PlayArrow as PlayIcon } from '@mui/icons-material';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const HeroSection: React.FC = () => {
+  const router = useRouter();
   const handleSendMessage = () => {
     // Navigate to contact section
     const element = document.querySelector('#contact');
@@ -15,11 +17,7 @@ const HeroSection: React.FC = () => {
   };
 
   const handleViewPortfolio = () => {
-    // Navigate to portfolio section
-    const element = document.querySelector('#portfolio');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    router.push('/portfolio');
   };
 
   return (

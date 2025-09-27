@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Box,
   Typography,
@@ -8,32 +8,151 @@ import {
   Button,
   useTheme,
   Paper,
+  Alert,
+  Snackbar,
 } from '@mui/material';
 import { Send as SendIcon } from '@mui/icons-material';
+import emailjs from '@emailjs/browser';
+
+// EmailJS configuration
+const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
+const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
+const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
 
 const ProjectForm: React.FC = () => {
   const theme = useTheme();
+  const formRef = useRef<HTMLFormElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [alert, setAlert] = useState<{
+    open: boolean;
+    message: string;
+    severity: 'success' | 'error';
+  }>({
+    open: false,
+    message: '',
+    severity: 'success',
+  });
+
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    projectIdea: '',
+    from_name: '',
+    reply_to: '',
+    company: 'Independent',
+    project_idea: '',
+    honeypot: '',
+    source_url: '',
+    submitted_at: '',
   });
 
   useEffect(() => {
     // Check for stored project description
     const storedDescription = localStorage.getItem('projectDescription');
     if (storedDescription) {
-      setFormData(prev => ({ ...prev, projectIdea: storedDescription }));
+      setFormData(prev => ({ ...prev, project_idea: storedDescription }));
       // Clear the stored description after using it
       localStorage.removeItem('projectDescription');
     }
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = () => {
+    if (!formData.from_name.trim()) {
+      setAlert({
+        open: true,
+        message: 'Please enter your name',
+        severity: 'error',
+      });
+      return false;
+    }
+
+    if (!formData.reply_to.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.reply_to)) {
+      setAlert({
+        open: true,
+        message: 'Please enter a valid email address',
+        severity: 'error',
+      });
+      return false;
+    }
+
+    if (formData.project_idea.length < 20) {
+      setAlert({
+        open: true,
+        message: 'Please provide more details about your project (at least 20 characters)',
+        severity: 'error',
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
+
+    if (!formRef.current || isSubmitting) return;
+
+    // Check for honeypot
+    if (formData.honeypot) {
+      // Silently succeed without sending
+      setAlert({
+        open: true,
+        message: 'Message sent successfully!',
+        severity: 'success',
+      });
+      setFormData({
+        from_name: '',
+        reply_to: '',
+        company: 'Independent',
+        project_idea: '',
+        honeypot: '',
+        source_url: '',
+        submitted_at: '',
+      });
+      return;
+    }
+
+    if (!validateForm()) return;
+
+    setIsSubmitting(true);
+
+    // Set hidden fields
+    const submissionData = {
+      ...formData,
+      source_url: window.location.href,
+      submitted_at: new Date().toLocaleString(),
+    };
+
+    try {
+      await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        { publicKey: EMAILJS_PUBLIC_KEY }
+      );
+
+      setAlert({
+        open: true,
+        message: 'Message sent successfully!',
+        severity: 'success',
+      });
+
+      // Reset form
+      setFormData({
+        from_name: '',
+        reply_to: '',
+        company: 'Independent',
+        project_idea: '',
+        honeypot: '',
+        source_url: window.location.href,
+        submitted_at: new Date().toLocaleString(),
+      });
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: 'Failed to send message. Please try again.',
+        severity: 'error',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -96,6 +215,7 @@ const ProjectForm: React.FC = () => {
 
         <Box
           component='form'
+          ref={formRef}
           onSubmit={handleSubmit}
           sx={{
             display: 'flex',
@@ -113,10 +233,11 @@ const ProjectForm: React.FC = () => {
             <TextField
               required
               fullWidth
+              name="from_name"
               label='Name'
               placeholder='Your full name'
-              value={formData.name}
-              onChange={e => setFormData({ ...formData, name: e.target.value })}
+              value={formData.from_name}
+              onChange={e => setFormData({ ...formData, from_name: e.target.value })}
               sx={{
                 '& .MuiOutlinedInput-root': {
                   bgcolor: 'background.default',
@@ -133,12 +254,13 @@ const ProjectForm: React.FC = () => {
             <TextField
               required
               fullWidth
+              name="reply_to"
               label='Email'
               type='email'
               placeholder='your@email.com'
-              value={formData.email}
+              value={formData.reply_to}
               onChange={e =>
-                setFormData({ ...formData, email: e.target.value })
+                setFormData({ ...formData, reply_to: e.target.value })
               }
               sx={{
                 '& .MuiOutlinedInput-root': {
@@ -157,12 +279,11 @@ const ProjectForm: React.FC = () => {
 
           <TextField
             fullWidth
+            name="company"
             label='Company'
             placeholder='Your company name'
             value={formData.company}
-            onChange={e =>
-              setFormData({ ...formData, company: e.target.value })
-            }
+            onChange={e => setFormData({ ...formData, company: e.target.value || 'Independent' })}
             sx={{
               '& .MuiOutlinedInput-root': {
                 bgcolor: 'background.default',
@@ -182,11 +303,12 @@ const ProjectForm: React.FC = () => {
             fullWidth
             multiline
             rows={4}
+            name="project_idea"
             label='Project Idea'
             placeholder='Tell us about your project goals, timeline, and any specific requirements...'
-            value={formData.projectIdea}
+            value={formData.project_idea}
             onChange={e =>
-              setFormData({ ...formData, projectIdea: e.target.value })
+              setFormData({ ...formData, project_idea: e.target.value })
             }
             sx={{
               '& .MuiOutlinedInput-root': {
@@ -202,10 +324,31 @@ const ProjectForm: React.FC = () => {
             }}
           />
 
+          {/* Hidden Fields */}
+          <input
+            type="hidden"
+            name="source_url"
+            value={window.location.href}
+          />
+          <input
+            type="hidden"
+            name="submitted_at"
+            value={new Date().toLocaleString()}
+          />
+          
+          {/* Honeypot field */}
+          <TextField
+            sx={{ display: 'none' }}
+            name="honeypot"
+            value={formData.honeypot}
+            onChange={e => setFormData({ ...formData, honeypot: e.target.value })}
+          />
+
           <Button
             type='submit'
             variant='contained'
             size='large'
+            disabled={isSubmitting}
             endIcon={<SendIcon />}
             sx={{
               mt: 1,
@@ -225,9 +368,25 @@ const ProjectForm: React.FC = () => {
               transition: 'all 0.3s ease-in-out',
             }}
           >
-            Send Message
+            {isSubmitting ? 'Sending...' : 'Send Message'}
           </Button>
         </Box>
+
+        <Snackbar
+          open={alert.open}
+          autoHideDuration={6000}
+          onClose={() => setAlert({ ...alert, open: false })}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        >
+          <Alert
+            onClose={() => setAlert({ ...alert, open: false })}
+            severity={alert.severity}
+            variant="filled"
+            sx={{ width: '100%' }}
+          >
+            {alert.message}
+          </Alert>
+        </Snackbar>
       </Box>
     </Paper>
   );
